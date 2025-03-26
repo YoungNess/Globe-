@@ -4,26 +4,29 @@ import { TextureLoader } from 'three';
 import { OrbitControls, Html, Stars } from '@react-three/drei';
 import * as THREE from 'three';
 
+// Fonction pour convertir des coordonnées géographiques (latitude, longitude) en coordonnées 3D (x, y, z)
 function latLonToXYZ(lat: number, lon: number, radius: number = 1.01): [number, number, number] {
-  const phi = (90 - lat) * (Math.PI / 180);  // latitude -> polar angle
-  const theta = (lon + 180) * (Math.PI / 180);  // longitude -> azimuthal angle
+  const phi = (90 - lat) * (Math.PI / 180); // Convertit la latitude en angle polaire
+  const theta = (lon + 180) * (Math.PI / 180); // Convertit la longitude en angle azimutal
 
+  // Calcul des coordonnées cartésiennes
   const x = -radius * Math.sin(phi) * Math.cos(theta);
   const z = radius * Math.sin(phi) * Math.sin(theta);
   const y = radius * Math.cos(phi);
 
-  return [x, y, z];
+  return [x, y, z]; // Retourne les coordonnées [x, y, z]
 }
 
+// Interface pour définir la structure des données des lieux
 interface Location {
-  name: string;
-  position: [number, number, number];
-  description: string;
-  image: string;
+  name: string; // Nom du lieu
+  position: [number, number, number]; // Position en coordonnées 3D
+  description: string; // Description du lieu
+  image: string; // URL de l'image associée
 }
 
+// Tableau contenant les données des lieux à afficher sur le globe
 const locations: Location[] = [
- 
   {
     name: "Cap-Vert",
     position: latLonToXYZ(16.5388, -23.0418),
@@ -62,33 +65,42 @@ const locations: Location[] = [
   }
   
 ];
+  // Ajoutez d'autres lieux ici...
 
+// Composant principal pour le globe interactif
 function Globe() {
-  const earthRef = useRef<THREE.Mesh>(null);
-  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
-  const [hovered, setHovered] = useState<string | null>(null);
+  const earthRef = useRef<THREE.Mesh>(null); // Référence pour manipuler le globe
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null); // État pour suivre le lieu sélectionné
+  const [hovered, setHovered] = useState<string | null>(null); // État pour suivre le lieu survolé
 
+  // Charge la texture de la Terre
   const [earthMap] = useLoader(TextureLoader, [
     'https://unpkg.com/three-globe@2.30.0/example/img/earth-blue-marble.jpg'
   ]);
 
+  // Fait tourner le globe à chaque frame
   useFrame(() => {
     if (earthRef.current) {
-      earthRef.current.rotation.y += 0.001;
+      earthRef.current.rotation.y += 0.001; // Rotation autour de l'axe Y
     }
   });
 
   return (
     <>
+      {/* Ajoute un fond d'étoiles */}
       <Stars radius={300} depth={60} count={20000} factor={7} saturation={0} fade speed={1} />
 
+      {/* Ajoute des sources de lumière */}
       <ambientLight intensity={0.4} />
       <pointLight position={[10, 10, 10]} intensity={1.5} />
       <pointLight position={[-10, -10, -10]} intensity={0.5} color="#2266cc" />
       <directionalLight position={[5, 3, 5]} intensity={1.5} />
 
+      {/* Globe terrestre */}
       <mesh ref={earthRef}>
+        {/* Géométrie sphérique */}
         <sphereGeometry args={[1, 64, 64]} />
+        {/* Matériau réaliste avec texture */}
         <meshPhysicalMaterial 
           map={earthMap}
           roughness={0.7}
@@ -99,45 +111,54 @@ function Globe() {
           emissiveIntensity={0.1}
         />
 
+        {/* Affiche les points pour chaque lieu */}
         {locations.map((location, index) => (
           <group key={index} position={location.position}>
+            {/* Point cliquable */}
             <mesh
-              onClick={() => setSelectedLocation(location)}
+              onClick={() => setSelectedLocation(location)} // Sélectionne le lieu au clic
               onPointerOver={() => {
-                document.body.style.cursor = 'pointer';
-                setHovered(location.name);
+                document.body.style.cursor = 'pointer'; // Change le curseur en "pointer"
+                setHovered(location.name); // Met à jour l'état de survol
               }}
               onPointerOut={() => {
-                document.body.style.cursor = 'default';
-                setHovered(null);
+                document.body.style.cursor = 'default'; // Remet le curseur par défaut
+                setHovered(null); // Réinitialise l'état de survol
               }}
             >
+              {/* Géométrie du point */}
               <sphereGeometry args={[0.03, 16, 16]} />
+              {/* Matériau du point */}
               <meshBasicMaterial 
-                color={hovered === location.name ? "#ffff00" : "#ff4444"}
+                color={hovered === location.name ? "#ffff00" : "#ff4444"} // Change la couleur si survolé
                 transparent
                 opacity={0.8}
               />
             </mesh>
 
+            {/* Popup HTML affichée lorsqu'un lieu est sélectionné */}
             {selectedLocation === location && (
               <Html position={[0, 0.1, 0]}>
                 <div className="bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl p-8 w-[600px] transform -translate-x-1/2">
+                  {/* Bouton pour fermer la popup */}
                   <button 
                     onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedLocation(null);
+                      e.stopPropagation(); // Empêche la propagation du clic
+                      setSelectedLocation(null); // Ferme la popup
                     }}
                     className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl font-light"
                   >
                     ×
                   </button>
+                  {/* Image du lieu */}
                   <img 
                     src={location.image} 
                     alt={location.name}
                     className="w-full h-72 object-cover rounded-lg mb-6 shadow-lg"
                   />
+                  {/* Titre du lieu */}
                   <h3 className="text-3xl font-bold text-gray-800 mb-4">{location.name}</h3>
+                  {/* Description du lieu */}
                   <p className="text-lg text-gray-600 leading-relaxed">{location.description}</p>
                 </div>
               </Html>
@@ -149,12 +170,17 @@ function Globe() {
   );
 }
 
+// Composant principal de l'application
 export default function WorldMap() {
   return (
     <div className="h-screen w-full">
+      {/* Canvas React Three Fiber */}
       <Canvas camera={{ position: [0, 0, 2.5], fov: 45 }}>
+        {/* Fond noir */}
         <color attach="background" args={['#000']} />
+        {/* Composant Globe */}
         <Globe />
+        {/* Contrôles d'orbite */}
         <OrbitControls 
           enableZoom={true}
           enablePan={true}
