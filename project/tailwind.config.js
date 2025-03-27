@@ -1,8 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+module.exports = {
+  content: ['./src/**/*.{js,jsx,ts,tsx}'], // Assurez-vous que Tailwind scanne tous vos fichiers
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'abc-sans': ['ABCSans', 'sans-serif'],
+        'neutral-face': ['Neutral_Face', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 };

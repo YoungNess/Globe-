@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+    font-family: 'Neutral Face Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Neutral Face Regular'), url('/project/public/NeutralFace.woff') format('woff');
+    }
+    
+
+
+
+    @font-face {
+    font-family: 'ABCSans';
+    font-style: normal;
+    font-weight: normal;
+    src: local('ABCSans'), url('/project/public/abcsans-light.woff') format('woff');
+    }
+
+    
