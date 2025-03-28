@@ -1,21 +1,19 @@
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      "model-viewer": any;
+    }
+  }
+}
+
 "use client"
 
 import { useState } from "react"
-import "@google/model-viewer/dist/model-viewer.css"; // Importe les styles CSS
+import "@google/model-viewer"; 
 export default function Modelisation() {
   const [activeTab, setActiveTab] = useState("texte1")
 
   return (
-    <html lang="en">
-    <head>
-
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
-      
-      <title>Document</title>
-    </head>
-    <body>
-
     <div className="flex min-h-screen w-full items-center justify-center bg-white p-8">
       <div className="flex w-full max-w-[1920px] flex-col md:flex-row items-start justify-between gap-8 md:gap-36 lg:gap-48 xl:gap-64">
         {/* Section gauche - plus d'espace pour le modèle 3D */}
@@ -24,7 +22,19 @@ export default function Modelisation() {
             <h1 className="text-3xl font-bold uppercase tracking-wide font-neutral-face">Modélisation</h1>
             <p className="text-bg text-gray-600 font-abc-sans">Faites tourner l'objet</p>
           </div>
-
+          <model-viewer
+            src="public/models/model.glb"
+            alt="Calebasse mandingue"
+            camera-controls
+            auto-rotate
+            ar
+            shadow-intensity="1"
+            className="w-full h-[500px] bg-gray-100 rounded-md"
+          >
+            <button slot="ar-button" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+              Activer AR
+            </button>
+          </model-viewer>
           {/* Placeholder pour le modèle 3D - agrandi */}
           <div className="aspect-square bg-gray-100 rounded-md flex items-center justify-center w-full">
             <p className="text-gray-400 font-abc-sans">Modèle 3D</p>
@@ -126,8 +136,6 @@ export default function Modelisation() {
         </div>
       </div>
     </div>
-    </body>
-    </html>
     
   )
 }
