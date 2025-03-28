@@ -1,9 +1,13 @@
 // global.d.ts
 
 declare global {
-	namespace JSX {
-		interface IntrinsicElements {
-			"model-viewer": any; // Vous pouvez définir des propriétés spécifiques ici si nécessaire
-		}
-	}
-}
+    namespace JSX {
+      interface IntrinsicElements {
+        // Déclare l'élément <model-viewer>
+        'model-viewer': React.DetailedHTMLProps<
+          React.HTMLAttributes<HTMLElement>,
+          HTMLElement
+        >;
+      }
+    }
+  }
