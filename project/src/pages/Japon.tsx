@@ -19,7 +19,7 @@ declare global {
           {/* Section gauche - plus d'espace pour le modèle 3D */}
           <div className="w-full md:w-1/3 lg:w-1/4">
             <div className="flex flex-col items-start mb-6">
-              <h1 className="text-3xl font-bold uppercase tracking-wide font-neutral-face">La Calebasse</h1>
+              <h1 className="text-3xl font-bold uppercase tracking-wide font-neutral-face">Le naginata</h1>
               <p className="text-bg text-gray-600 font-abc-sans">Faites tourner l'objet </p>
             </div>
            
@@ -44,7 +44,8 @@ declare global {
           {/* Section droite - déplacée plus à droite */}
           <div className="w-full md:w-1/2 lg:w-7/12 xl:w-1/2">
             <div className="rounded-2xl bg-white p-8 md:p-10 shadow-md h-[500px] flex flex-col">
-              <h2 className="mb-6 text-2xl font-bold uppercase font-neutral-face">La calebasse : Un simple objet au centre de la transmission culturelle mandingue</h2>
+              <h2 className="mb-6 text-2xl font-bold uppercase font-neutral-face">Le naginata : une arme au service des guerriers du Japon.
+              </h2>
   
               {/* Onglets */}
               
@@ -59,23 +60,33 @@ declare global {
                 {activeTab === "texte1" && (
                   <div className="text-base md:text-lg leading-relaxed text-gray-700 font-abc-sans">
 
-                    <h3 className="text-lg font-semibold mb-2">Imaginez un objet qui raconterait des histoires, transmettrait la sagesse des ancêtres et fedait battre le cœur de la musique traditionnelle dans le royaume du mandingue tout entier. En fait, cet objet existe : c’est la calebasse. C’est un trésor inhabituel de la culture mandingue.
+                    <h3 className="text-lg font-semibold mb-2">Vous connaissez sûrement les samouraïs et leur arme emblématique le katana cependant,
+ils ne se limitaient pas qu’a cette arme et utilisaient également d'autres armes adaptées aux
+besoins du combat. Parmi elles, le naginata occupe une place importante , notamment face
+aux cavaliers et dans les batailles rangées.
                     </h3>
                     <p className="mb-4">
-                    Ces derniers sont pour la plupart consommables lorsqu'ils sont jeunes, mais l'usage premier de ce fruit est culturel et spirituel.
+                    Arme iconique du japon médiéval ,le naginata est né durant l'ère Tengyō (938-947)
+au cours des conflits opposant les différents seigneurs féodaux aux empereurs qui
+tentaient de maintenir leur autorité. Cette arme, composée d'un long manche
+en bois ou en métal et d'une lame courbe, était utilisée aussi bien par les guerriers
+samouraïs que par les moines-soldats (sōhei) qui armés de cette lance, mais aussi
+d’arc et d’épées défendaient les intérêts de leurs temples contre les seigneurs
+féodaux ,les samouraïs ou même contre d’autres sectes religieuses.
 
-L'objet trouve d'abord sa place dans la cuisine, sous forme de récipients, de louches, de bols ou de saladiers.
 
                     </p>
                     <p className="mb-4">
-                    ans la musique, la calebasse occupe une place très importante dans la culture africaine, notamment auprès des griots,
+                    Au fil des siècles, le naginata a connu plusieurs évolutions.Jusqu'à l'époque Époque
+Sengoku (1394-1570), il était largement utilisé. Cependant, avec l'arrivée des armes
+à feu au XVIᵉ siècle, son usage militaire a peu à peu été délaissé.
 
-Les griots sont des artistes traditionnels qui jouent un rôle important dans les sociétés mandingues , notamment durant l'époque de Soundiata Keïta, fondateur de l'Empire du Mali au XIIIᵉ siècle.
 
                     </p>
                     <p>
-                    Ceux-ci transmettaient les contes culturels, l'éducation ou l'information à travers leur musique et leurs instruments fabriqués à l'aide de calebasses, comme le kora ou le gooni. De nos jours, elle est tout autant utilisée, et on la retrouve souvent dans les percussions, telles que les maracas ou les tambours.
-
+                    Aujourd’hui, bien que son usage premier ait disparu, le naginata survit à travers le
+naginatajutsu,une discipline qui perpétue les techniques et l’héritage de cette arme
+historique.
                     </p>
                   </div>
                 )}
